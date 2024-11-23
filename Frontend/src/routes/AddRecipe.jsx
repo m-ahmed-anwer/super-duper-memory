@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { HiPlus } from "react-icons/hi2";
+import { IoMdTrash } from "react-icons/io";
 
 function AddRecipe() {
   const [title, setTitle] = useState("");
@@ -24,8 +26,8 @@ function AddRecipe() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-900 px-6 py-12">
-      <div className="max-w-3xl mx-auto bg-gray-50 dark:bg-zinc-800 shadow-md rounded-lg p-8">
+    <div className="min-h-screen bg-white dark:bg-zinc-900 px-1 py-10 sm:px-6 sm:py-12 backdrop-blur-sm">
+      <div className="max-w-3xl mx-auto bg-gray-50 dark:bg-zinc-800 shadow-lg rounded-lg p-3 sm:p-8">
         <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">
           Add a New Recipe
         </h1>
@@ -43,7 +45,7 @@ function AddRecipe() {
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-4 py-2 text-gray-800 bg-gray-100 dark:bg-zinc-700 dark:text-gray-300 border border-gray-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              className="w-full px-4 py-2 text-gray-800 bg-gray-100 dark:bg-zinc-700 dark:text-gray-300 border border-transparent rounded-lg focus:ring-0 "
               placeholder="Enter recipe title"
               required
             />
@@ -61,7 +63,7 @@ function AddRecipe() {
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full px-4 py-2 text-gray-800 bg-gray-100 dark:bg-zinc-700 dark:text-gray-300 border border-gray-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+              className="w-full px-4 py-2 text-gray-800 bg-gray-100 dark:bg-zinc-700 dark:text-gray-300 border border-transparent rounded-lg"
               placeholder="Write a short description about the recipe"
               rows="4"
               required
@@ -82,15 +84,15 @@ function AddRecipe() {
                 id="ingredients"
                 value={newIngredient}
                 onChange={(e) => setNewIngredient(e.target.value)}
-                className="flex-grow px-4 py-2 text-gray-800 bg-gray-100 dark:bg-zinc-700 dark:text-gray-300 border border-gray-300 dark:border-zinc-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400"
+                className="flex-grow px-4 py-2 text-gray-800 bg-gray-100 dark:bg-zinc-700 dark:text-gray-300 border border-transparent rounded-lg focus:ring-0 "
                 placeholder="Add an ingredient"
               />
               <button
                 type="button"
                 onClick={handleAddIngredient}
-                className="px-4 py-2 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition duration-300"
+                className="px-4 py-2 bg-[#00ADB5] text-white font-medium rounded-lg hover:bg-[#00ADd5] transition duration-300"
               >
-                Add
+                <HiPlus size={20} />
               </button>
             </div>
             {ingredients.length > 0 && (
@@ -108,7 +110,7 @@ function AddRecipe() {
                       onClick={() => handleRemoveIngredient(index)}
                       className="text-red-500 hover:text-red-700 transition duration-300"
                     >
-                      Remove
+                      <IoMdTrash size={22} />
                     </button>
                   </li>
                 ))}
@@ -120,7 +122,7 @@ function AddRecipe() {
           <div className="text-center">
             <button
               type="submit"
-              className="px-6 py-3 bg-indigo-500 text-white font-bold rounded-lg hover:bg-indigo-600 transition duration-300"
+              className="w-full rounded-full bg-[#00ADB5] text-white px-6 py-3 font-semibold uppercase transition-all duration-300 hover:bg-[#00ADd5] hover:shadow-md active:bg-[#222831] dark:bg-[#00ADB5] dark:text-white dark:hover:bg-[#393E46] dark:active:bg-[#222831] dark:shadow-none"
             >
               Save Recipe
             </button>

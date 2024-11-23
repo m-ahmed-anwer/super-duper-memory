@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IoSunnyOutline, IoMoonOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [theme, setTheme] = useState("light");
@@ -10,14 +11,14 @@ function Navbar() {
   };
 
   return (
-    <div className="px-6 py-5 bg-white dark:bg-zinc-900 shadow-md transition duration-300">
+    <div className="sticky top-0 px-3 py-2 bg-white dark:bg-zinc-900 bg-opacity-60 backdrop-blur-lg shadow-md transition duration-300 z-50">
       <div className="flex justify-between items-center max-w-screen-xl mx-auto">
         {/* Left: Navigation */}
         <ul className="flex items-center space-x-6">
           <li>
             <a
               href="/"
-              className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 transition duration-300"
+              className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-[#00ADB5] dark:hover:text-[#00ADB5] transition duration-300"
             >
               Refresh
             </a>
@@ -25,22 +26,20 @@ function Navbar() {
         </ul>
 
         {/* Center: Brand */}
-        <a
-          href="/"
-          aria-label="Company"
-          title="Company"
+        <Link
+          to={"/"}
           className="text-2xl font-bold text-gray-800 dark:text-gray-100 uppercase tracking-widest flex items-center"
         >
-          <span className="mr-2 bg-gradient-to-r from-blue-500 to-indigo-500 bg-clip-text text-transparent">
+          <span className="mr-2 bg-gradient-to-r from-[#00ADB5] to-[#00ADB5] bg-clip-text text-transparent">
             Mummy's Kitchen
           </span>
-        </a>
+        </Link>
 
         {/* Right: Dark Mode Toggle */}
         <div className="flex items-center space-x-6">
           <button
             onClick={darkModeHandler}
-            className="relative w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 p-[2px] transition duration-300 hover:shadow-lg hover:shadow-indigo-500/50"
+            className="relative w-12 h-12 rounded-full bg-gradient-to-r from-[#00ADB5] to-[#393E46] p-[2px] transition duration-300 hover:shadow-lg hover:shadow-[#00ADB5]/50"
           >
             <div className="flex items-center justify-center w-full h-full bg-white dark:bg-zinc-800 rounded-full transition duration-300">
               {theme === "light" ? (
