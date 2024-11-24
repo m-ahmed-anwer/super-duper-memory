@@ -1,8 +1,18 @@
+import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
 import { Recipe } from "../model/Recipe";
 import { CustomError } from "../errors/custom-error";
+import Redis from "ioredis";
 
 const router = express.Router();
+
+// Create Redis client using ioredis
+const redisClient = new Redis();
+
+// Log Redis connection errors
+redisClient.on("error", (err) => {
+  console.error("Redis error:", err);
+});
 
 router.put(
   "/api/add-recipe",
@@ -22,11 +32,23 @@ router.put(
         description,
       });
 
+      if (!process.env.REDIS_KEY) {
+        return next(new CustomError("Redis key not found"));
+      }
+
+      // Cleanring the cache to reflect the new addition
+      await redisClient.del(process.env.REDIS_KEY!);
+
       // Return success response
-      res.status(201).send(newRecipe);
+      res.status(201).send({
+        success: true,
+        message: "Recipe added successfully",
+        newRecipe,
+      });
     } catch (error) {
       // Catch any database or server error
       res.status(500).send({
+        success: false,
         message: "Error adding recipe",
         error,
       });

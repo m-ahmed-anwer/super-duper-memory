@@ -24,7 +24,7 @@ app.use(deleteRecipeRouter);
 
 // Handle undefined routes with a 404 error
 app.all("*", async (req, res) => {
-  res.status(404).send({ message: "Page not found" });
+  res.status(404).send({ success: false, message: "Page not found" });
 });
 
 // Use the error handler middleware

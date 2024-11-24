@@ -1,9 +1,19 @@
+import "dotenv/config";
 import express, { NextFunction, Request, Response } from "express";
 import { Recipe } from "../model/Recipe";
 import mongoose from "mongoose";
 import { CustomError } from "../errors/custom-error";
+import Redis from "ioredis";
 
 const router = express.Router();
+
+// Create Redis client
+const redisClient = new Redis();
+
+// Log Redis connection errors
+redisClient.on("error", (err) => {
+  console.error("Redis error:", err);
+});
 
 router.post(
   "/api/edit-recipe/:id",
@@ -31,16 +41,26 @@ router.post(
 
       // If no recipe is found, return an error
       if (!editRecipe) {
-        return next(new CustomError("Recipe not found", 400)); // Recipe not found error
+        return next(new CustomError("Recipe not found", 400));
       }
+
+      if (!process.env.REDIS_KEY) {
+        return next(new CustomError("Redis key not found"));
+      }
+
+      // Cleaing the cache after editing a recipe
+      await redisClient.del(process.env.REDIS_KEY!);
 
       // Return success response
       res.status(200).send({
+        success: true,
         message: "Recipe updated successfully",
+        editRecipe,
       });
     } catch (error) {
       // Catch any database or server error
       res.status(500).send({
+        success: false,
         message: "Error updating recipe",
         error,
       });

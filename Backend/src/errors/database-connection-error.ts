@@ -9,6 +9,6 @@ export class DatabaseConnectionError extends Error {
   }
 
   serializeErrors() {
-    return [{ message: this.reason }];
+    return { message: this.message };
   }
 }
