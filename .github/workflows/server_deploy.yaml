@@ -41,12 +41,12 @@ jobs:
       # Step 6: Build the Docker image
       - name: Build the Docker image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:latest -f Backend/Dockerfile Backend
+          docker build -t ${{ secrets.GCP_PROJECT_ID }}/backend:latest -f Backend/Dockerfile Backend
 
       # Step 7: Push the Docker image to Google Container Registry
       - name: Push the Docker image to GCP Container Registry
         run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/backend:latest
+          docker push ${{ secrets.GCP_PROJECT_ID }}/backend:latest
 
       # Step 8: Deploy the Docker image to Cloud Run
       - name: Deploy to Cloud Run
