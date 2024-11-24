@@ -56,5 +56,4 @@ jobs:
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \
-            --port 3001 \
-            --set-env-vars REDIS_HOST=memstore-instance-name,REDIS_PORT=6379
+            --port 3001
