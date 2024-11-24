@@ -24,35 +24,26 @@ router.put(
       return next(new CustomError("Missing required fields", 400));
     }
 
-    try {
-      // Create a new recipe in the database
-      const newRecipe = await Recipe.create({
-        name,
-        ingredients,
-        description,
-      });
+    // Create a new recipe in the database
+    const newRecipe = await Recipe.create({
+      name,
+      ingredients,
+      description,
+    });
 
-      if (!process.env.REDIS_KEY) {
-        return next(new CustomError("Redis key not found"));
-      }
-
-      // Cleanring the cache to reflect the new addition
-      await redisClient.del(process.env.REDIS_KEY!);
-
-      // Return success response
-      res.status(201).send({
-        success: true,
-        message: "Recipe added successfully",
-        newRecipe,
-      });
-    } catch (error) {
-      // Catch any database or server error
-      res.status(500).send({
-        success: false,
-        message: "Error adding recipe",
-        error,
-      });
+    if (!process.env.REDIS_KEY) {
+      return next(new CustomError("Redis key not found"));
     }
+
+    // Cleanring the cache to reflect the new addition
+    await redisClient.del(process.env.REDIS_KEY!);
+
+    // Return success response
+    res.status(201).send({
+      success: true,
+      message: "Recipe added successfully",
+      newRecipe,
+    });
   }
 );
 

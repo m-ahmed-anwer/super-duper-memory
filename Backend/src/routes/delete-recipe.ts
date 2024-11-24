@@ -26,32 +26,25 @@ router.delete(
       return next(new CustomError("Invalid or missing ID", 400));
     }
 
-    try {
-      // Attempt to delete the recipe
-      const deletedRecipe = await Recipe.findByIdAndDelete(id);
+    // Attempt to delete the recipe
+    const deletedRecipe = await Recipe.findByIdAndDelete(id);
 
-      // If no recipe found, return error
-      if (!deletedRecipe) return next(new CustomError("Recipe not found", 400));
+    // If no recipe found, return error
+    if (!deletedRecipe) return next(new CustomError("Recipe not found", 400));
 
-      if (!process.env.REDIS_KEY) {
-        return next(new CustomError("Redis key not found"));
-      }
-
-      // Optionally, clear the cache after deleting a recipe
-      await redisClient.del(process.env.REDIS_KEY!);
-
-      // Return success response
-      res.status(200).json({
-        success: true,
-        message: "Recipe deleted successfully",
-        recipe: deletedRecipe,
-      });
-    } catch (error) {
-      // Catch any database or server error
-      res
-        .status(500)
-        .json({ success: false, message: "Error deleting recipe", error });
+    if (!process.env.REDIS_KEY) {
+      return next(new CustomError("Redis key not found"));
     }
+
+    // Optionally, clear the cache after deleting a recipe
+    await redisClient.del(process.env.REDIS_KEY!);
+
+    // Return success response
+    res.status(200).json({
+      success: true,
+      message: "Recipe deleted successfully",
+      recipe: deletedRecipe,
+    });
   }
 );
 
