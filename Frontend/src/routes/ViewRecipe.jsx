@@ -21,13 +21,7 @@ function ViewRecipe() {
 
   let content;
   if (recipeStatus === "loading") {
-    content = (
-      <div>
-        <LoadingSticker />
-        <LoadingSticker />
-        <LoadingSticker />
-      </div>
-    );
+    content = <LoadingSticker />;
   } else if (recipeStatus === "failed") {
     content = (
       <div>
