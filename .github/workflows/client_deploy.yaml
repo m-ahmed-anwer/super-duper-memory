@@ -1,0 +1,9 @@
+name: Build and Deploy to AWS Amplify
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Frontend/**"
+      - ".github/workflows/client_deploy.yaml"
