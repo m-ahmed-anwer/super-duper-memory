@@ -81,7 +81,7 @@ docker run --rm recipe-app
 
 **Running Tests Locally**
 
-You can run tests locally using the following command (Note: since Redis is used, the Redis server also needs to be started):
+You can run the server applicaion locally using the following command (Note: since Redis is used, the Redis server also needs to be started):
 
 ```bash
 brew install redis
@@ -98,7 +98,7 @@ npm start
 
 **Running Tests with Docker**
 
-To run tests in a Docker container, use the following command:
+To run the server applicaion in a Docker container, use the following command:
 ```bash
 cd Backend
 docker build -t server-app .
