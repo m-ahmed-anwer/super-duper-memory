@@ -31,36 +31,46 @@ router.post(
       return next(new CustomError("Missing required fields", 400)); // Missing fields error
     }
 
-    // Attempt to find and update the recipe
-    const editRecipe = await Recipe.findByIdAndUpdate(id, {
-      name,
-      ingredients,
-      description,
-    });
-
-    // If no recipe is found, return an error
-    if (!editRecipe) {
-      return next(new CustomError("Recipe not found", 400));
-    }
-
-    if (!process.env.REDIS_KEY) {
-      return next(new CustomError("Redis key not found"));
-    }
-
-    // Cleaing the cache after editing a recipe
-    await redisClient.del(process.env.REDIS_KEY!);
-
-    // Return success response
-    res.status(200).send({
-      success: true,
-      message: "Recipe updated successfully",
-      editRecipe: {
-        id,
+    try {
+      // Attempt to find and update the recipe
+      const editRecipe = await Recipe.findByIdAndUpdate(id, {
         name,
         ingredients,
         description,
-      },
-    });
+      });
+
+      // If no recipe is found, return an error
+      if (!editRecipe) {
+        return next(new CustomError("Recipe not found", 400));
+      }
+
+      if (!process.env.REDIS_KEY) {
+        return next(new CustomError("Redis key not found"));
+      }
+
+      // Cleaing the cache after editing a recipe
+      await redisClient.del(process.env.REDIS_KEY!);
+
+      // Return success response
+      res.status(200).send({
+        success: true,
+        message: "Recipe updated successfully",
+        editRecipe: {
+          id,
+          name,
+          ingredients,
+          description
+
+        },
+      });
+    } catch (error) {
+      // Catch any database or server error
+      res.status(500).send({
+        success: false,
+        message: "Error updating recipe",
+        error,
+      });
+    }
   }
 );
 
