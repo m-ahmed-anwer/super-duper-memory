@@ -37,23 +37,24 @@ function ViewRecipe() {
 
   return (
     <>
-      <div className=" px-4 py-12 dark:bg-zinc-900 ">
-        <div className="text-center  dark:text-white text-zinc-900  my-32">
+      <div className="px-4 py-12 dark:bg-zinc-900">
+        <div className="text-center dark:text-white text-zinc-900 my-32">
           <h1 className="text-5xl font-bold mb-4 animate__animated animate__fadeInDown">
             Discover Delicious Recipes
           </h1>
           <p className="text-xl mb-8 animate__animated animate__fadeInUp">
             Explore a variety of recipes that will tantalize your taste buds!
           </p>
+
           <Link
             to={"/add-recipe"}
-            className="bg-[#00ADB5] text-[#222831] font-semibold py-3 px-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
+            className="bg-[#00ADB5] text-[#222831] font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95 dark:bg-[#008B8B] dark:text-white dark:hover:bg-[#00ADB5] hover:bg-[#00ADD5]"
           >
-            Add Your Recipe
+            <span className="text-lg font-bold">Add Your Recipe</span>
           </Link>
         </div>
 
-        <h2 className="text-5xl leading-tight text-center mb-12 font-mono font-bold text-black dark:text-white  animate__animated animate__fadeIn">
+        <h2 className="text-5xl leading-tight text-center mb-12 font-mono font-bold text-black dark:text-white animate__animated animate__fadeIn">
           Recipes
         </h2>
 
