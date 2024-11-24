@@ -8,8 +8,15 @@ import { errorHandler } from "./middleware/error-handler";
 
 const app = express();
 
+// Configure CORS to allow the frontend origin
+const corsOptions = {
+  origin: "https://frontend-706975379343.us-central1.run.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type"],
+};
+
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Root route for testing the API
 app.get("/", (req, res) => {
