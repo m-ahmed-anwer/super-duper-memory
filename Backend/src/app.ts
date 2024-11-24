@@ -10,7 +10,7 @@ const app = express();
 
 const allowedOrigins = [
   "https://frontend-706975379343.us-central1.run.app",
-  "http://localhost:5173", // Local development frontend
+  "http://localhost:5173",
 ];
 
 // Configure CORS to allow the frontend origin
