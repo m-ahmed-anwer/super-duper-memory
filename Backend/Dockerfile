@@ -20,3 +20,4 @@ EXPOSE 3001 6379
 
 # Start Redis and Node.js application
 CMD redis-server --daemonize yes && npm start
+
