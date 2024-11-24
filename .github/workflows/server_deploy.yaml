@@ -41,7 +41,7 @@ jobs:
       # Step 6: Build the Docker image
       - name: Build the Docker image
         run: |
-          docker build -t ${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE }}:latest -f Backend/Dockerfile Backend
+          docker build -t ${{ secrets.GCP_PROJECT_ID }}/${{ secrets.DOCKER_IMAGE }}:latest .
 
       # Step 7: Push the Docker image to Google Container Registry
       - name: Push the Docker image to GCP Container Registry
