@@ -15,9 +15,8 @@ COPY . .
 # Install Redis
 RUN apt-get update && apt-get install -y redis-server
 
-# Expose the necessary ports (3001 for the app, 6379 for Redis)
+# Expose the ports
 EXPOSE 3001 6379
 
-# Start Redis and Node.js application
-CMD redis-server --daemonize yes && npm start
-
+# Start the app
+CMD redis-server --daemonize no & npm start
