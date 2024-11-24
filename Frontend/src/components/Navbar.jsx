@@ -31,7 +31,7 @@ function Navbar() {
           className="text-2xl font-bold text-gray-800 dark:text-gray-100 uppercase tracking-widest flex items-center"
         >
           <span className="mr-2 bg-gradient-to-r from-[#00ADB5] to-[#00ADB5] bg-clip-text text-transparent">
-            Mummy's Kitchen
+            Recipe Tracker
           </span>
         </Link>
 
