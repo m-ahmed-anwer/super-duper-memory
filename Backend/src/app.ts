@@ -1,5 +1,5 @@
 import express from "express";
-import cors from "cors";
+import cors, { CorsOptions } from "cors";
 import { getRecipeRouter } from "./routes/get-recipe";
 import { addRecipeRouter } from "./routes/add-recipe";
 import { editRecipeRouter } from "./routes/edit-recipe";
@@ -8,9 +8,20 @@ import { errorHandler } from "./middleware/error-handler";
 
 const app = express();
 
+const allowedOrigins = [
+  "https://frontend-706975379343.us-central1.run.app",
+  "http://localhost:5173", // Local development frontend
+];
+
 // Configure CORS to allow the frontend origin
-const corsOptions = {
-  origin: "https://frontend-706975379343.us-central1.run.app",
+const corsOptions: CorsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"],
 };
