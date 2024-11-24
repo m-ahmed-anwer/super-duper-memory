@@ -48,7 +48,7 @@ function ViewRecipe() {
 
           <Link
             to={"/add-recipe"}
-            className="bg-[#00ADB5] text-[#222831] font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95 dark:bg-[#008B8B] dark:text-white dark:hover:bg-[#00ADB5] hover:bg-[#00ADD5]"
+            className=" animate__animated animate__fadeIn bg-[#00ADB5] text-[#222831] font-semibold py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95 dark:bg-[#008B8B] dark:text-white dark:hover:bg-[#00ADB5] hover:bg-[#00ADD5]"
           >
             <span className="text-lg font-bold">Add Your Recipe</span>
           </Link>
