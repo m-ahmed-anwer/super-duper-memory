@@ -11,6 +11,8 @@ import {
   selectRecipeIds,
   selectRecipeStatus,
 } from "../store/recipeSlice";
+import LoadingSticker from "../components/LoadingSticker";
+import ErrorSticker from "../components/ErrorSticker";
 
 function ViewRecipe() {
   const recipeId = useSelector(selectRecipeIds);
@@ -19,9 +21,19 @@ function ViewRecipe() {
 
   let content;
   if (recipeStatus === "loading") {
-    content = <div className="text-center">Loading...</div>;
+    content = (
+      <div>
+        <LoadingSticker />
+        <LoadingSticker />
+        <LoadingSticker />
+      </div>
+    );
   } else if (recipeStatus === "failed") {
-    content = <div className="text-center">{recipeError}</div>;
+    content = (
+      <div>
+        <ErrorSticker message={recipeError} />
+      </div>
+    );
   } else if (recipeStatus === "succeeded") {
     content = recipeId.map((id) => <RecipeSticker key={id} recipeId={id} />);
   }
