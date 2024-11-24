@@ -1,28 +1,60 @@
 import React, { useState } from "react";
 import { HiPlus } from "react-icons/hi2";
 import { IoMdTrash } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { addRecipe } from "../store/recipeSlice";
+import { useNavigate } from "react-router-dom";
 
 function AddRecipe() {
-  const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [ingredients, setIngredients] = useState([]);
+  const [ingredients, setIngredients] = useState("");
   const [newIngredient, setNewIngredient] = useState("");
+  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleAddIngredient = () => {
     if (newIngredient.trim()) {
-      setIngredients([...ingredients, newIngredient]);
+      setIngredients((prevIngredients) => {
+        // Add new ingredient and ensure it is separated by commas
+        return prevIngredients
+          ? `${prevIngredients}, ${newIngredient.trim()}`
+          : newIngredient.trim();
+      });
       setNewIngredient("");
+      setError("");
     }
   };
 
-  const handleRemoveIngredient = (index) => {
-    setIngredients(ingredients.filter((_, i) => i !== index));
+  const handleRemoveIngredient = (ingredientToRemove) => {
+    setIngredients((prevIngredients) => {
+      const ingredientsList = prevIngredients
+        .split(", ")
+        .filter((ingredient) => ingredient !== ingredientToRemove);
+      return ingredientsList.join(", ");
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const recipe = { title, description, ingredients };
-    console.log("Recipe submitted:", recipe);
+
+    // Validation: Ensure ingredients string is not empty
+    if (!ingredients.trim()) {
+      setError("Please add at least one ingredient.");
+      return;
+    }
+
+    const recipe = { name, description, ingredients };
+
+    dispatch(addRecipe(recipe)).then((action) => {
+      // Check if the action was successful
+      if (action.payload.success) {
+        navigate("/"); // Navigate to the homepage
+      } else {
+        setError(action.payload.message); // Display error message
+      }
+    });
   };
 
   return (
@@ -32,21 +64,21 @@ function AddRecipe() {
           Add a New Recipe
         </h1>
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Recipe Title */}
+          {/* Recipe Name */}
           <div>
             <label
-              htmlFor="title"
+              htmlFor="name"
               className="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2"
             >
-              Recipe Title
+              Recipe Name
             </label>
             <input
               type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full px-4 py-2 text-gray-800 bg-gray-100 dark:bg-zinc-700 dark:text-gray-300 border border-transparent rounded-lg focus:ring-0 "
-              placeholder="Enter recipe title"
+              placeholder="Enter recipe name"
               required
             />
           </div>
@@ -95,27 +127,29 @@ function AddRecipe() {
                 <HiPlus size={20} />
               </button>
             </div>
-            {ingredients.length > 0 && (
-              <ul className="space-y-2">
-                {ingredients.map((ingredient, index) => (
-                  <li
-                    key={index}
-                    className="flex justify-between items-center bg-gray-100 dark:bg-zinc-700 px-4 py-2 rounded-lg"
+
+            {/* Display ingredients as a list */}
+            {ingredients &&
+              ingredients.split(", ").map((ingredient, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center bg-gray-100 dark:bg-zinc-700 px-4 py-2 rounded-lg my-3"
+                >
+                  <span className="text-gray-800 dark:text-gray-300">
+                    {ingredient}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveIngredient(ingredient)}
+                    className="text-red-500 hover:text-red-700 transition duration-300"
                   >
-                    <span className="text-gray-800 dark:text-gray-300">
-                      {ingredient}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveIngredient(index)}
-                      className="text-red-500 hover:text-red-700 transition duration-300"
-                    >
-                      <IoMdTrash size={22} />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
+                    <IoMdTrash size={22} />
+                  </button>
+                </div>
+              ))}
+
+            {/* Error message for empty ingredients */}
+            {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           </div>
 
           {/* Submit Button */}

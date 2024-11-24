@@ -6,7 +6,7 @@ function AddRecipeSticker() {
   return (
     <Link
       to={"/add-recipe"}
-      className="flex flex-col justify-center items-center rounded-lg border border-gray-200 bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800 p-6 row-span-2 h-full cursor-pointer group hover:bg-gray-100 dark:hover:bg-[#27272e]"
+      className="flex flex-col justify-center items-center rounded-lg border border-gray-200 bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800 p-6 row-span-2 h-full cursor-pointer group hover:bg-gray-100 dark:hover:bg-[#27272e] sm:min-h-[300px] min-h-[180px] transition duration-300"
     >
       <GoPlus
         size={60}
