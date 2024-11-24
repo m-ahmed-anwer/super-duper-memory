@@ -58,9 +58,9 @@ function EditRecipe() {
       return;
     }
 
-    const recipe = { name, description, ingredients };
+    const newRecipe = { name, description, ingredients };
 
-    dispatch(updateRecipe(recipe, recipeId)).then((action) => {
+    dispatch(updateRecipe({ recipe: newRecipe, recipeId })).then((action) => {
       if (action.payload.success) {
         navigate("/");
       } else {
