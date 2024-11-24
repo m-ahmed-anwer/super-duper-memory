@@ -1,4 +1,4 @@
-name: Build and Deploy to AWS Amplify
+name: Build and Deploy Clien to AWS Amplify
 
 on:
   push:
