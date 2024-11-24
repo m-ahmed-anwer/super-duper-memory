@@ -32,12 +32,8 @@ router.put(
         description,
       });
 
-      if (!process.env.REDIS_KEY) {
-        return next(new CustomError("Redis key not found"));
-      }
-
       // Cleanring the cache to reflect the new addition
-      await redisClient.del(process.env.REDIS_KEY!);
+      await redisClient.del("all_recipes");
 
       // Return success response
       res.status(201).send({

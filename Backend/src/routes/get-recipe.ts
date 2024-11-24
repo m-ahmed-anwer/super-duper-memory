@@ -18,12 +18,8 @@ router.get(
   "/api/get-recipes",
   async (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (!process.env.REDIS_KEY || !process.env.CACHE_TIME) {
-        return next(new CustomError("Redis key or cache time not found"));
-      }
-
       // Check Redis cache (use promise-based API)
-      const cachedData = await redisClient.get(process.env.REDIS_KEY!);
+      const cachedData = await redisClient.get("all_recipes");
 
       if (cachedData) {
         // If data exists in cache, return it
@@ -39,11 +35,7 @@ router.get(
         const recipes = await Recipe.find();
 
         // Store the result in Redis for 3600 seconds (1 hour)
-        redisClient.setex(
-          process.env.REDIS_KEY!,
-          process.env.CACHE_TIME!,
-          JSON.stringify(recipes)
-        );
+        redisClient.setex("all_recipes", 3600, JSON.stringify(recipes));
 
         // Return the database result
         res.status(200).send({

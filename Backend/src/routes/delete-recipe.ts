@@ -33,12 +33,8 @@ router.delete(
       // If no recipe found, return error
       if (!deletedRecipe) return next(new CustomError("Recipe not found", 400));
 
-      if (!process.env.REDIS_KEY) {
-        return next(new CustomError("Redis key not found"));
-      }
-
       // Optionally, clear the cache after deleting a recipe
-      await redisClient.del(process.env.REDIS_KEY!);
+      await redisClient.del("all_recipes");
 
       // Return success response
       res.status(200).json({
