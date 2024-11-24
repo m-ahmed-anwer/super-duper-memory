@@ -79,10 +79,7 @@ cd Backend
 docker build -t server-app .
 docker run -p 3001:3001 -p 6379:6379 server-app
 ```
-
-**🖥️ Frontend**
-
-Just a heads-up! If your port changes, make sure to add it to the list of allowed origins in `src/app.ts`:
+Just a heads-up! If your Frontend port changes, make sure to add it to the list of allowed origins in `src/app.ts`:
 
 ```bash
 const allowedOrigins = [
@@ -91,6 +88,9 @@ const allowedOrigins = [
   "Localhost url with your port number",
 ]
 ```
+
+
+**🖥️ Frontend**
 
 **Running Frontend Locally**
 
