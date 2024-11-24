@@ -55,7 +55,12 @@ router.post(
       res.status(200).send({
         success: true,
         message: "Recipe updated successfully",
-        editRecipe,
+        editRecipe: {
+          id,
+          name,
+          ingredients,
+          description,
+        },
       });
     } catch (error) {
       // Catch any database or server error

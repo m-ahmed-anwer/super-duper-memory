@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteRecipe, selectRecipeById } from "../store/recipeSlice";
+import Toaster from "../utils/Toaster";
 
 function RecipeSticker({ recipeId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +23,20 @@ function RecipeSticker({ recipeId }) {
   };
 
   const handleConfirmDelete = () => {
-    dispatch(deleteRecipe(recipeId));
+    dispatch(deleteRecipe(recipeId))
+      .unwrap()
+      .then((payload) => {
+        if (payload.success) {
+          Toaster.justToast("success", payload.message);
+        } else {
+          Toaster.justToast("error", payload.message);
+        }
+      })
+      .catch((error) => {
+        Toaster.justToast("error", "An error occurred during deletion.");
+        console.error("Delete Error:", error);
+      });
+
     setIsModalOpen(false);
   };
 

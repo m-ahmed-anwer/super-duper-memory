@@ -109,7 +109,7 @@ const recipeSlice = createSlice({
       .addCase(updateRecipe.fulfilled, (state, action) => {
         if (action.payload.success) {
           // Process ingredients (convert string to array)
-          const updatedRecipeWithArrayIngredients = {
+          const editedRecipeWithArrayIngredients = {
             ...action.payload.editRecipe,
             ingredients: action.payload.editRecipe.ingredients
               .split(",")
@@ -117,13 +117,14 @@ const recipeSlice = createSlice({
               .filter(Boolean),
           };
 
-          recipeAdapter.upsertOne(state, updatedRecipeWithArrayIngredients);
+          recipeAdapter.upsertOne(state, editedRecipeWithArrayIngredients);
         } else {
           state.error = action.payload.message;
         }
       })
+
       .addCase(updateRecipe.rejected, (state, action) => {
-        state.error = action.error.message;
+        state.error = action.payload.message;
       })
       .addCase(deleteRecipe.fulfilled, (state, action) => {
         if (action.payload.success) {
@@ -133,7 +134,7 @@ const recipeSlice = createSlice({
         }
       })
       .addCase(deleteRecipe.rejected, (state, action) => {
-        state.error = action.error.message;
+        state.error = action.payload.message;
       });
   },
 });
