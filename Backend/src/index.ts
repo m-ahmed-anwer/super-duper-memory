@@ -9,7 +9,7 @@ const start = async () => {
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error(error);
-    process.exit(1); // Exiting the process if connection fails
+    process.exit(1);
   }
 
   // Start the server

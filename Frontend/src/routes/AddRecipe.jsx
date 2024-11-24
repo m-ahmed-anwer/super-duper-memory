@@ -22,6 +22,7 @@ function AddRecipe() {
 
     const recipe = { name, description, ingredients };
 
+    // Dispatch Add Recipe
     dispatch(addRecipe(recipe)).then((action) => {
       if (action.payload.success) {
         Toaster.justToast("success", action.payload.message);
@@ -32,6 +33,7 @@ function AddRecipe() {
     });
   };
 
+  // Add Ingredient
   const handleAddIngredient = (newIngredient) => {
     if (newIngredient.trim()) {
       setIngredients((prevIngredients) =>
@@ -42,6 +44,7 @@ function AddRecipe() {
     }
   };
 
+  // Remove Ingredient
   const handleRemoveIngredient = (ingredientToRemove) => {
     setIngredients((prevIngredients) => {
       const ingredientsList = prevIngredients
@@ -57,6 +60,7 @@ function AddRecipe() {
         <h1 className="text-3xl font-bold text-center text-gray-800 dark:text-white mb-8">
           Add a New Recipe
         </h1>
+        {/* AddForm Component */}
         <AddForm
           name={name}
           setName={setName}

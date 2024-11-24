@@ -28,9 +28,9 @@ function EditForm({ recipeForm, setRecipeForm, onSubmit }) {
   // Handle removing an ingredient by index
   const handleRemoveIngredient = (indexToRemove) => {
     setRecipeForm((prevForm) => {
-      const updatedIngredients = [...prevForm.ingredients]; // Create a copy of the ingredients array
-      updatedIngredients.splice(indexToRemove, 1); // Remove the ingredient at the given index
-      return { ...prevForm, ingredients: updatedIngredients }; // Return the updated form
+      const updatedIngredients = [...prevForm.ingredients];
+      updatedIngredients.splice(indexToRemove, 1);
+      return { ...prevForm, ingredients: updatedIngredients };
     });
   };
 
@@ -116,7 +116,7 @@ function EditForm({ recipeForm, setRecipeForm, onSubmit }) {
             </span>
             <button
               type="button"
-              onClick={() => handleRemoveIngredient(index)} // Pass the index here
+              onClick={() => handleRemoveIngredient(index)}
               className="text-red-500 hover:text-red-700 transition duration-300"
             >
               <IoMdTrash size={22} />

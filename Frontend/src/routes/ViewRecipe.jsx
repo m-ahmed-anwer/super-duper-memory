@@ -15,20 +15,23 @@ import LoadingSticker from "../components/LoadingSticker";
 import ErrorSticker from "../components/ErrorSticker";
 
 function ViewRecipe() {
-  const recipeId = useSelector(selectRecipeIds);
-  const recipeStatus = useSelector(selectRecipeStatus);
-  const recipeError = useSelector(selectRecipeError);
+  const recipeId = useSelector(selectRecipeIds); // Get Recipe IDs
+  const recipeStatus = useSelector(selectRecipeStatus); // Get Recipe Status
+  const recipeError = useSelector(selectRecipeError); // Get Recipe Error
 
   let content;
   if (recipeStatus === "loading") {
+    // Loading State
     content = <LoadingSticker />;
   } else if (recipeStatus === "failed") {
+    // Error State
     content = (
       <div>
         <ErrorSticker message={recipeError} />
       </div>
     );
   } else if (recipeStatus === "succeeded") {
+    // Success State
     content = recipeId.map((id) => <RecipeSticker key={id} recipeId={id} />);
   }
 
@@ -53,6 +56,8 @@ function ViewRecipe() {
         <h2 className="text-5xl leading-tight text-center mb-12 font-mono font-bold text-black dark:text-white  animate__animated animate__fadeIn">
           Recipes
         </h2>
+
+        {/* Recipes Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4 max-w-7xl mx-auto">
           {content}
           <AddRecipeSticker />

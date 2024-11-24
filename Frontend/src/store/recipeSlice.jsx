@@ -5,12 +5,14 @@ import {
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const RECIPE_BASE_URL = "http://localhost:3001/api";
+const RECIPE_BASE_URL = "http://localhost:3001/api"; // Backend URL
 
+// Entity Adapter
 const recipeAdapter = createEntityAdapter({
   selectId: (recipe) => recipe.id,
 });
 
+// Thunk to fetch recipes from the API
 export const fetchRecipes = createAsyncThunk(
   "recipe/fetchRecipes",
   async () => {
@@ -19,6 +21,7 @@ export const fetchRecipes = createAsyncThunk(
   }
 );
 
+// Thunk to add a new recipe
 export const addRecipe = createAsyncThunk(
   "recipe/addRecipe",
   async (recipe) => {
@@ -27,6 +30,7 @@ export const addRecipe = createAsyncThunk(
   }
 );
 
+// Thunk to update a recipe
 export const updateRecipe = createAsyncThunk(
   "recipe/updateRecipe",
   async ({ recipe, recipeId }) => {
@@ -38,6 +42,7 @@ export const updateRecipe = createAsyncThunk(
   }
 );
 
+// Thunk to delete a recipe
 export const deleteRecipe = createAsyncThunk(
   "recipe/deleteRecipe",
   async (recipeId) => {
@@ -48,11 +53,13 @@ export const deleteRecipe = createAsyncThunk(
   }
 );
 
+// Initial state with entity adapter and additional status/error properties
 const initialState = recipeAdapter.getInitialState({
   status: "idle",
   error: null,
 });
 
+// Recipe Slice with reducers and extra reducers for async actions
 const recipeSlice = createSlice({
   name: "recipe",
   initialState,
@@ -77,7 +84,7 @@ const recipeSlice = createSlice({
             })
           );
 
-          recipeAdapter.upsertMany(state, recipesWithArrayIngredients);
+          recipeAdapter.upsertMany(state, recipesWithArrayIngredients); // Add multiple recipes to redux store
         } else {
           state.status = "failed";
           state.error = action.payload.message;
@@ -98,7 +105,7 @@ const recipeSlice = createSlice({
               .filter(Boolean),
           };
 
-          recipeAdapter.addOne(state, newRecipeWithArrayIngredients);
+          recipeAdapter.addOne(state, newRecipeWithArrayIngredients); // Add a single recipe to redux store
         } else {
           state.error = action.payload.message;
         }
@@ -117,7 +124,7 @@ const recipeSlice = createSlice({
               .filter(Boolean),
           };
 
-          recipeAdapter.upsertOne(state, editedRecipeWithArrayIngredients);
+          recipeAdapter.upsertOne(state, editedRecipeWithArrayIngredients); // Update a single recipe in redux store
         } else {
           state.error = action.payload.message;
         }
@@ -128,7 +135,7 @@ const recipeSlice = createSlice({
       })
       .addCase(deleteRecipe.fulfilled, (state, action) => {
         if (action.payload.success) {
-          recipeAdapter.removeOne(state, action.payload.recipe.id);
+          recipeAdapter.removeOne(state, action.payload.recipe.id); // Remove a single recipe from redux store
         } else {
           state.error = action.payload.message;
         }
@@ -143,9 +150,9 @@ export const {
   selectAll: selectAllRecipes,
   selectById: selectRecipeById,
   selectIds: selectRecipeIds,
-} = recipeAdapter.getSelectors((state) => state.recipe);
+} = recipeAdapter.getSelectors((state) => state.recipe); // Export selectors from the entity adapter
 
-export const selectRecipeStatus = (state) => state.recipe.status;
-export const selectRecipeError = (state) => state.recipe.error;
+export const selectRecipeStatus = (state) => state.recipe.status; // Export status of the recipe slice
+export const selectRecipeError = (state) => state.recipe.error; // Export error of the recipe slice
 
 export default recipeSlice.reducer;

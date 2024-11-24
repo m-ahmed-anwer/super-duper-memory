@@ -20,8 +20,7 @@ function EditRecipe() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const recipe = useSelector((state) => selectRecipeById(state, recipeId));
-  const recipeError = useSelector(selectRecipeError);
+  const recipe = useSelector((state) => selectRecipeById(state, recipeId)); // Get Recipe by ID
 
   const [recipeForm, setRecipeForm] = useState(formInitialState);
 
@@ -36,6 +35,7 @@ function EditRecipe() {
     }
   }, [recipe]);
 
+  // Handle Recipe Not Found
   if (!recipe) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white dark:bg-zinc-900">
@@ -58,6 +58,7 @@ function EditRecipe() {
       ingredients: updatedForm.ingredients.join(", "),
     };
 
+    // Dispatch Update Recipe
     dispatch(updateRecipe({ recipe: updatedRecipe, recipeId })).then(
       (action) => {
         if (action.payload.success) {
@@ -77,6 +78,7 @@ function EditRecipe() {
           Edit Recipe #ID-{" "}
           <span className="text-[#0d292a] text-base">{recipeId}</span>
         </h1>
+        {/* EditForm Component */}
         <EditForm
           recipeForm={recipeForm}
           setRecipeForm={setRecipeForm}

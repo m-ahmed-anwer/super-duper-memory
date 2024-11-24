@@ -14,6 +14,7 @@ function AddForm({
 }) {
   const [newIngredient, setNewIngredient] = useState("");
 
+  // Form Submit Handler
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit();

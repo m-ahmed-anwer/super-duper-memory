@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   const [theme, setTheme] = useState("light");
 
+  // Dark Mode Handler
   const darkModeHandler = () => {
     setTheme(theme === "light" ? "dark" : "light");
     document.documentElement.classList.toggle("dark", theme === "light");

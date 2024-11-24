@@ -6,30 +6,14 @@ function Modal({ isModalOpen, handleCancelDelete, handleConfirmDelete }) {
   return (
     <Transition.Root show={isModalOpen} as={React.Fragment}>
       <Dialog as="div" className="relative z-10" onClose={handleCancelDelete}>
-        <Transition.Child
-          as={React.Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
+        <Transition.Child as={React.Fragment}>
           {/* Modal Overlay */}
           <div className="fixed inset-0 bg-black bg-opacity-50" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
           <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
-            <Transition.Child
-              as={React.Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
+            <Transition.Child as={React.Fragment}>
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white dark:bg-zinc-800 text-left shadow-xl transition-all sm:my-8 sm:w-full max-sm:w-4/6 sm:max-w-lg">
                 {/* Modal Content */}
                 <div className="bg-white dark:bg-zinc-800 px-4 pb-4 pt-5 sm:p-6 sm:pb-4">

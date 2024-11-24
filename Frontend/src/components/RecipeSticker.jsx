@@ -11,17 +11,20 @@ function RecipeSticker({ recipeId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
-  const recipe = useSelector((state) => selectRecipeById(state, recipeId));
+  const recipe = useSelector((state) => selectRecipeById(state, recipeId)); // Get Recipe by ID
   const { name, ingredients, description } = recipe;
 
+  // Delete Click
   const handleDeleteClick = () => {
     setIsModalOpen(true);
   };
 
+  // Cancel Delete
   const handleCancelDelete = () => {
     setIsModalOpen(false);
   };
 
+  // Delete Recipe
   const handleConfirmDelete = () => {
     dispatch(deleteRecipe(recipeId))
       .unwrap()
