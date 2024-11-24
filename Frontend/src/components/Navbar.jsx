@@ -16,12 +16,12 @@ function Navbar() {
         {/* Left: Navigation */}
         <ul className="flex items-center space-x-6">
           <li>
-            <a
-              href="/"
+            <button
+              onClick={() => window.location.reload()}
               className="text-lg font-medium text-gray-700 dark:text-gray-200 hover:text-[#00ADB5] dark:hover:text-[#00ADB5] transition duration-300"
             >
               Refresh
-            </a>
+            </button>
           </li>
         </ul>
 
