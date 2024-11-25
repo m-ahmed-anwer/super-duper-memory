@@ -6,7 +6,7 @@ A sleek, modern app to manage and organize your culinary masterpieces. Built wit
 
 The Recipe Tracker App is your digital cookbook, letting you:
 
-- View recipes in an elegant card format.
+- View recipes in an elegant card and table format.
 - Add, Edit, Delete, and Refresh recipes with ease.
 
 This app simplifies your cooking process, saving time while keeping your favorite recipes just a click away.
