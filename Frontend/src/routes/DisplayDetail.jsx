@@ -20,7 +20,7 @@ function DisplayDetail() {
   }
 
   return (
-    <div className="grid grid- gap-4 max-w-7xl mx-auto sm:p-28 p-3">
+    <div className="grid grid- gap-4 max-w-7xl mx-auto sm:p-28 p-3 bg-white dark:bg-zinc-900">
       <div className="flex flex-col rounded-lg border border-gray-200  p-6 row-span-2 h-full transition duration-300 hover:bg-gray-100 dark:hover:bg-[#27272e] bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800">
         {/* Name Section */}
         <div className="flex items-center justify-between mb-4">
