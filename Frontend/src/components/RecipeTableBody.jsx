@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { LuTrash2 } from "react-icons/lu";
 import { MdEdit } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteRecipe, selectRecipeById } from "../store/recipeSlice";
 import Toaster from "../utils/Toaster";
 import Modal from "./Modal";
@@ -10,6 +10,7 @@ import Modal from "./Modal";
 function RecipeTableBody({ recipeId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const recipe = useSelector((state) => selectRecipeById(state, recipeId)); // Get Recipe by ID
   const { name, ingredients, description } = recipe;
@@ -44,7 +45,10 @@ function RecipeTableBody({ recipeId }) {
   };
 
   return (
-    <tr className="max-w-screen-lg mx-auto hover:bg-gray-100 dark:hover:bg-[#27272e] bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800 shadow-md rounded-lg overflow-hidden">
+    <tr
+      onClick={() => navigate(`/view-recipe/${recipeId}`)}
+      className="cursor-pointer max-w-screen-lg mx-auto hover:bg-gray-100 dark:hover:bg-[#27272e] bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800 shadow-md rounded-lg overflow-hidden"
+    >
       <td className="text-lg px-4 py-2 font-medium text-gray-900 dark:text-gray-100">
         {name}
       </td>

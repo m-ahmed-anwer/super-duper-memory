@@ -44,7 +44,10 @@ function RecipeSticker({ recipeId }) {
   };
 
   return (
-    <div className="flex flex-col rounded-lg border border-gray-200  p-6 row-span-2 h-full transition duration-300 hover:bg-gray-100 dark:hover:bg-[#27272e] bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800">
+    <Link
+      to={`/view-recipe/${recipeId}`}
+      className="flex flex-col rounded-lg border border-gray-200  p-6 row-span-2 h-full transition duration-300 hover:bg-gray-100 dark:hover:bg-[#27272e] bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800"
+    >
       {/* Name Section */}
       <h1 className="mb-4 text-4xl font-medium leading-tight text-gray-900 dark:text-white">
         {name}
@@ -90,7 +93,7 @@ function RecipeSticker({ recipeId }) {
         handleCancelDelete={handleCancelDelete}
         handleConfirmDelete={handleConfirmDelete}
       />
-    </div>
+    </Link>
   );
 }
 
