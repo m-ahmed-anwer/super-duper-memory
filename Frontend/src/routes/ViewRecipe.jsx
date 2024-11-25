@@ -25,11 +25,7 @@ function ViewRecipe() {
     content = <LoadingSticker />;
   } else if (recipeStatus === "failed") {
     // Error State
-    content = (
-      <div>
-        <ErrorSticker message={recipeError} />
-      </div>
-    );
+    content = <ErrorSticker message={recipeError} />;
   } else if (recipeStatus === "succeeded") {
     // Success State
     content = recipeId.map((id) => <RecipeSticker key={id} recipeId={id} />);

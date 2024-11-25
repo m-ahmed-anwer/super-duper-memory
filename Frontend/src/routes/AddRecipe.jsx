@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addRecipe } from "../store/recipeSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addRecipe,
+  selectRecipeError,
+  selectRecipeStatus,
+} from "../store/recipeSlice";
 import { useNavigate } from "react-router-dom";
 import AddForm from "../components/AddForm";
 import Toaster from "../utils/Toaster";
@@ -10,13 +14,21 @@ function AddRecipe() {
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState("");
 
+  const recipeStatus = useSelector(selectRecipeStatus); // Get Recipe Status
+  const recipeError = useSelector(selectRecipeError); // Get Recipe Error
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    // Validation
     if (!ingredients.trim()) {
+      // Validation
       Toaster.justToast("error", "Please add at least one ingredient.");
+      return;
+    }
+
+    if (recipeStatus === "failed") {
+      Toaster.justToast("error", recipeError);
       return;
     }
 

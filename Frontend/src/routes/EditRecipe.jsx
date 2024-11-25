@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   selectRecipeById,
   selectRecipeError,
+  selectRecipeStatus,
   updateRecipe,
 } from "../store/recipeSlice";
 import EditForm from "../components/EditForm";
@@ -21,6 +22,8 @@ function EditRecipe() {
   const dispatch = useDispatch();
 
   const recipe = useSelector((state) => selectRecipeById(state, recipeId)); // Get Recipe by ID
+  const recipeStatus = useSelector(selectRecipeStatus); // Get Recipe Status
+  const recipeError = useSelector(selectRecipeError); // Get Recipe Error
 
   const [recipeForm, setRecipeForm] = useState(formInitialState);
 
@@ -50,6 +53,11 @@ function EditRecipe() {
   const handleSubmit = (updatedForm) => {
     if (updatedForm.ingredients.length === 0) {
       Toaster.justToast("error", "Please add at least one ingredient.");
+      return;
+    }
+
+    if (recipeStatus === "failed") {
+      Toaster.justToast("error", recipeError);
       return;
     }
 
