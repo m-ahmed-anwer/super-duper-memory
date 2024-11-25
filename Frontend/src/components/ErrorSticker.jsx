@@ -3,7 +3,7 @@ import { BsExclamationTriangle } from "react-icons/bs";
 
 function ErrorSticker({ message }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center space-y-4 p-6 border rounded-lg border-red-300 bg-red-50 dark:bg-red-900 dark:border-red-700 text-red-800 dark:text-red-300 min-h-[180px]">
+    <div className="flex flex-col row-span-2 items-center justify-center text-center space-y-4 p-6 border rounded-lg h-full sm:min-h-[300px] min-h-[180px]  border-red-300 bg-red-50 dark:bg-red-900 dark:border-red-700 text-red-800 dark:text-red-300 ">
       <BsExclamationTriangle
         className="w-16 h-16 text-red-500 dark:text-red-300"
         size={40}
