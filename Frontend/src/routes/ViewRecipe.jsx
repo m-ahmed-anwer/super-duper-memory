@@ -113,7 +113,7 @@ function ViewRecipe() {
                     open === "table" ? "block" : "hidden"
                   } `}
                 >
-                  <RecipeTable recipeId={recipeId} />
+                  <RecipeTable />
                 </div>
               </div>
             </div>
