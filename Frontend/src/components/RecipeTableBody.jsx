@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { MdEdit } from "react-icons/md";
 import { LuTrash2 } from "react-icons/lu";
-import { Link } from "react-router-dom";
-import Modal from "./Modal";
+import { MdEdit } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { deleteRecipe, selectRecipeById } from "../store/recipeSlice";
 import Toaster from "../utils/Toaster";
+import Modal from "./Modal";
 
-function RecipeSticker({ recipeId }) {
+function RecipeTableBody({ recipeId }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -44,54 +44,43 @@ function RecipeSticker({ recipeId }) {
   };
 
   return (
-    <div className="flex flex-col rounded-lg border border-gray-200  p-6 row-span-2 h-full transition duration-300 hover:bg-gray-100 dark:hover:bg-[#27272e] bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800">
-      {/* Name Section */}
-      <h1 className="mb-4 text-4xl font-medium leading-tight text-gray-900 dark:text-white">
+    <tr className="max-w-screen-lg mx-auto hover:bg-gray-100 dark:hover:bg-[#27272e] bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800 shadow-md rounded-lg overflow-hidden">
+      <td className="text-lg px-4 py-2 font-medium text-gray-900 dark:text-gray-100">
         {name}
-      </h1>
-
-      {/* Ingredients Section */}
-      <div className="mb-6">
-        <h2 className="my-3 text-xl font-medium text-gray-700 dark:text-zinc-400">
-          Ingredients
-        </h2>
-        <ul className="text-lg text-gray-600 dark:text-zinc-400 space-y-1">
+      </td>
+      <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
+        <ul className="text-lgtext-gray-600 dark:text-gray-400 space-y-1">
           {ingredients.map((ingredient, index) => (
             <li key={index}>- {ingredient}</li>
           ))}
         </ul>
-      </div>
-
-      {/* Description Section */}
-      <p className="text-lg leading-relaxed text-gray-700 dark:text-zinc-300 mb-6 flex-grow">
+      </td>
+      <td className="text-lg max-w-60 px-4 py-2 text-gray-700 dark:text-gray-300">
         {description}
-      </p>
-
-      {/* Action Buttons Section */}
-      <div className="flex justify-between mt-auto">
+      </td>
+      <td className="px-4 py-2">
         <Link
           to={`/edit-recipe/${recipeId}`}
-          className="flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-800 dark:bg-slate-50 dark:text-zinc-800 rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-300 transform hover:scale-110 transition duration-200 ease-out"
+          className="flex items-center justify-center w-10 h-10 bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 rounded-full cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600 transform hover:scale-110 transition duration-200 ease-out"
         >
           <MdEdit size={20} />
         </Link>
-
+      </td>
+      <td className="px-4 py-2">
         <div
-          className="flex items-center justify-center w-10 h-10 bg-red-100 text-red-800 dark:bg-red-300 dark:text-zinc-800 rounded-full cursor-pointer hover:bg-red-200 dark:hover:bg-red-400 transform hover:scale-110 transition duration-200 ease-out"
+          className="flex items-center justify-center w-10 h-10 bg-red-100 text-red-800 dark:bg-red-700 dark:text-gray-200 rounded-full cursor-pointer hover:bg-red-200 dark:hover:bg-red-600 transform hover:scale-110 transition duration-200 ease-out"
           onClick={handleDeleteClick}
         >
           <LuTrash2 size={20} />
         </div>
-      </div>
-
-      {/* Modal */}
+      </td>
       <Modal
         isModalOpen={isModalOpen}
         handleCancelDelete={handleCancelDelete}
         handleConfirmDelete={handleConfirmDelete}
       />
-    </div>
+    </tr>
   );
 }
 
-export default RecipeSticker;
+export default RecipeTableBody;
