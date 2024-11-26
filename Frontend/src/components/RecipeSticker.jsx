@@ -44,10 +44,7 @@ function RecipeSticker({ recipeId }) {
   };
 
   return (
-    <Link
-      to={`/view-recipe/${recipeId}`}
-      className="flex flex-col rounded-lg border border-gray-200  p-6 row-span-2 h-full transition duration-300 hover:bg-gray-100 dark:hover:bg-[#27272e] bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800"
-    >
+    <div className="flex flex-col rounded-lg border border-gray-200  p-6 row-span-2 h-full transition duration-300 hover:bg-gray-100 dark:hover:bg-[#27272e] bg-slate-50 dark:border-zinc-700 dark:bg-zinc-800">
       {/* Name Section */}
       <h1 className="mb-4 text-4xl font-medium leading-tight text-gray-900 dark:text-white">
         {name}
@@ -74,15 +71,18 @@ function RecipeSticker({ recipeId }) {
       <div className="flex justify-between mt-auto">
         <Link
           to={`/edit-recipe/${recipeId}`}
-          className="flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-800 dark:bg-slate-50 dark:text-zinc-800 rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-300 transform hover:scale-110 transition duration-200 ease-out"
-        >
+          className="flex items-center justify-center w-10 h-10 bg-gray-100 text-gray-800 dark:bg-slate-50 dark:text-zinc-800 rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-300 transform hover:scale-110 transition duration-200 ease-out">
           <MdEdit size={20} />
         </Link>
 
+        <Link
+          to={`/view-recipe/${recipeId}`}
+          className="flex items-center justify-center p-3 h-10 bg-gray-100 text-gray-800 dark:bg-slate-50 dark:text-zinc-800 rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-slate-300 transform hover:scale-110 transition duration-200 ease-out">
+          View Detail
+        </Link>
         <div
           className="flex items-center justify-center w-10 h-10 bg-red-100 text-red-800 dark:bg-red-300 dark:text-zinc-800 rounded-full cursor-pointer hover:bg-red-200 dark:hover:bg-red-400 transform hover:scale-110 transition duration-200 ease-out"
-          onClick={handleDeleteClick}
-        >
+          onClick={handleDeleteClick}>
           <LuTrash2 size={20} />
         </div>
       </div>
@@ -93,7 +93,7 @@ function RecipeSticker({ recipeId }) {
         handleCancelDelete={handleCancelDelete}
         handleConfirmDelete={handleConfirmDelete}
       />
-    </Link>
+    </div>
   );
 }
 

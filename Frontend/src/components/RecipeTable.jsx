@@ -18,8 +18,7 @@ function RecipeTable() {
       <tr className="max-w-screen-lg mx-auto bg-red-50 dark:bg-red-900 shadow-md  overflow-hidden">
         <td
           colSpan={5}
-          className="text-center text-lg px-4 py-5 font-medium text-red-500 dark:text-red-300"
-        >
+          className="text-center text-lg px-4 py-5 font-medium text-red-500 dark:text-red-300">
           {recipeError}
         </td>
       </tr>
@@ -47,6 +46,9 @@ function RecipeTable() {
             </th>
             <th className="text-xl font-bold px-4 py-4 text-zinc-900 dark:text-gray-50">
               Delete
+            </th>
+            <th className="text-xl font-bold px-4 py-4 text-zinc-900 dark:text-gray-50">
+              View
             </th>
           </tr>
         </thead>
